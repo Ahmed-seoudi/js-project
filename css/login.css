@@ -3,13 +3,14 @@ body{
     padding: 0;
     background-size:cover ;
     background-attachment: fixed;
-    background-image: url(../img/log.jpg);
+    background-image: url(../img/sign.jpeg);
+
 }
-div.login{
+div.signup{
     text-align: center;
     color: #ffffff;
     background-color: rgba(3, 18, 2, 0.905);
-    width: 55%;
+    width: 65%;
     height: 500px;
     margin: auto;
     border-radius: 10px;
@@ -17,13 +18,14 @@ div.login{
 }
 
 @media (max-width: 576px) {
-    div.login {
+    div.signup {
         width: 93%;
-        height: 491px;
+        height: 500px;
     }
 }
 
-.login{
+
+.sign{
     font-size: 38px;
     margin-top: 8px;
     margin-bottom: 3px;
@@ -59,18 +61,30 @@ div.login{
     font-size: 21px;
 }
 
-.inpass{
-    width: 50%;
-    border-radius:4px;
-    height: 30px;
-    background-color: #ffffff;
-}
+
+
 .inemail{
     width: 50%;
     border-radius:4px;
     height: 30px;
     background-color: #ffffff;
 }
+.inpass{
+    width: 50%;
+    border-radius:4px;
+    height: 30px;
+    background-color: #ffffff;
+}
+.inname{
+    width: 50%;
+    border-radius:4px;
+    height: 30px;
+    background-color: #ffffff;
+}
+.name{
+    margin-top: 15px;
+}
+
 
 .link{
 
