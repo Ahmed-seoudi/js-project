@@ -1,4 +1,3 @@
-// User Info
 let userInfo = document.querySelector("#user_info");
 let userD = document.querySelector("#user");
 let links = document.querySelector(".navbar-nav");
@@ -39,17 +38,25 @@ let products = [
     { id: 9, Category: "Electronic", title: "Laptop gaming", imageurl: "img/lap.png", price: 1099 }
 ];
 
-// Create product cards and add event listeners for favorites
+let addItem = [];
+
 function createProductHTML(item) {
+    let inCart = addItem.some(cartItem => cartItem.id === item.id);
+    let buttonText = inCart ? "Remove From Cart" : "Add To Cart";
+    let buttonClass = inCart ? "btn btn-danger" : "btn btn-success";
+    
+    let isFavorite = favoriteItems.some(favItem => favItem.id === item.id);
+    let heartColor = isFavorite ? "green" : "white";
+
     return `
-    <div class="card col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12" style="background-color: #161618; width: 24rem; padding-top: 15px; margin-top: 20px;">
+    <div class="card col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12" style="background-color: #161618; width: 24rem; padding-top: 15px; padding-bottom: 27px; margin-top: 20px;">
         <img src="${item.imageurl}" class="card-img-top">
         <div class="card-body">
             <p style="color: beige;">Category: ${item.Category}</p>
             <h4 style="color: white;" class="card-title">${item.title}</h4>
             <p class="card-price" style="color: aliceblue; font-size: 1.2rem;">Price: ${item.price}$</p>
-            <button class="btn btn-success" onclick="addToCart(${item.id})">Add To Cart</button>
-            <i style="color: aliceblue; cursor:pointer;" class="fa-solid fa-heart favourit "></i>
+            <button id="cart-btn-${item.id}" class="add-btn ${buttonClass}">${buttonText}</button>
+            <i id="heart-${item.id}" style="color: ${heartColor}; cursor:pointer;" class="fa-solid fa-heart favourit"></i>
         </div>
     </div>
     `;
@@ -58,55 +65,35 @@ function createProductHTML(item) {
 function drawItems() {
     let html = products.map(createProductHTML).join('');
     allproducts.innerHTML = html;
-}
 
-drawItems();
+    products.forEach(item => {
+        let button = document.getElementById(`cart-btn-${item.id}`);
+        button.addEventListener("click", () => {
+            if (addItem.some(cartItem => cartItem.id === item.id)) {
+                removeFromCart(item.id);
+            } else {
+                addToCart(item.id);
+            }
+        });
 
-let favoriteItems = localStorage.getItem("Favorites") ? JSON.parse(localStorage.getItem("Favorites")) : [];
-
-function addToFavorites(id, heartElement) {
-    let favoriteProduct = products.find(item => item.id === id);
-
-    if (!favoriteItems.some(item => item.id === id)) {
-        favoriteItems.push(favoriteProduct);
-        localStorage.setItem("Favorites", JSON.stringify(favoriteItems));
-    }
-
-   
-    heartElement.style.color = "green";
-}
-
-
-function removeFromFavorites(id, heartElement) {
-    favoriteItems = favoriteItems.filter(item => item.id !== id);
-    localStorage.setItem("Favorites", JSON.stringify(favoriteItems));
-
-    heartElement.style.color = "white"; 
-}
-
-document.querySelectorAll('.favourit').forEach((heart, index) => {
-    let productId = products[index].id;
-
-    
-    if (favoriteItems.some(item => item.id === productId)) {
-        heart.style.color = "green"; 
-    }
-
-    heart.addEventListener('click', () => {
-        if (favoriteItems.some(item => item.id === productId)) {
-           
-            removeFromFavorites(productId, heart);
-        } else {
-            
-            addToFavorites(productId, heart);
-        }
+        let heart = document.getElementById(`heart-${item.id}`);
+        heart.addEventListener('click', () => {
+            if (favoriteItems.some(favItem => favItem.id === item.id)) {
+                removeFromFavorites(item.id, heart);
+            } else {
+                addToFavorites(item.id, heart);
+            }
+        });
     });
-});
+}
 
-
-// Cart
-let mycarts = document.querySelector(".cart-div");
-let addItem = localStorage.getItem("ProductsInCart") ? JSON.parse(localStorage.getItem("ProductsInCart")) : [];
+function removeFromCart(id) {
+    addItem = addItem.filter(item => item.id !== id);
+    localStorage.setItem("ProductsInCart", JSON.stringify(addItem));
+    drawCartItems();
+    drawItems();
+    incrementCart();
+}
 
 function addToCart(id) {
     if (!localStorage.getItem("username")) {
@@ -125,10 +112,12 @@ function addToCart(id) {
 
     localStorage.setItem("ProductsInCart", JSON.stringify(addItem));
     drawCartItems();
+    drawItems();
     incrementCart();
 }
 
 function drawCartItems() {
+    let mycarts = document.querySelector(".cart-div");
     mycarts.innerHTML = "";
 
     let html = addItem.map((item) => {
@@ -224,5 +213,39 @@ function initializeCart() {
 
 document.addEventListener("DOMContentLoaded", function() {
     initializeCart();
+    drawItems(); // Draw products when the page loads
 });
 
+let favoriteItems = localStorage.getItem("Favorites") ? JSON.parse(localStorage.getItem("Favorites")) : [];
+
+function addToFavorites(id, heartElement) {
+    let favoriteProduct = products.find(item => item.id === id);
+
+    if (!favoriteItems.some(item => item.id === id)) {
+        favoriteItems.push(favoriteProduct);
+        localStorage.setItem("Favorites", JSON.stringify(favoriteItems));
+        heartElement.style.color = "green";
+    }
+}
+
+function removeFromFavorites(id, heartElement) {
+    favoriteItems = favoriteItems.filter(item => item.id !== id);
+    localStorage.setItem("Favorites", JSON.stringify(favoriteItems));
+    heartElement.style.color = "white";
+}
+
+document.querySelectorAll('.favourit').forEach((heart, index) => {
+    let productId = products[index].id;
+
+    if (favoriteItems.some(item => item.id === productId)) {
+        heart.style.color = "green"; 
+    }
+
+    heart.addEventListener('click', () => {
+        if (favoriteItems.some(item => item.id === productId)) {
+            removeFromFavorites(productId, heart);
+        } else {
+            addToFavorites(productId, heart);
+        }
+    });
+});
