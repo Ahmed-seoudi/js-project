@@ -10,11 +10,19 @@ div.login{
     color: #ffffff;
     background-color: rgba(3, 18, 2, 0.905);
     width: 55%;
-    height: 450px;
+    height: 500px;
     margin: auto;
     border-radius: 10px;
     margin-top: -2%;
 }
+
+@media (max-width: 576px) {
+    div.login {
+        width: 93%;
+        height: 491px;
+    }
+}
+
 .login{
     font-size: 38px;
     margin-top: 8px;
@@ -41,7 +49,8 @@ div.login{
     margin-top: 15px;
 }
 .logiin{
-    width: 27%;
+    width: 47%;
+    border-radius:4px;
     background: #015e01;
     margin: 14px;
     height: 36px;
@@ -50,19 +59,18 @@ div.login{
     font-size: 21px;
 }
 
-.inemail{
-    width: 47%;
-    border-radius:4px;
-    height: 30px;
-    background-color: #ffffff;
-}
 .inpass{
-    width: 47%;
+    width: 50%;
     border-radius:4px;
     height: 30px;
     background-color: #ffffff;
 }
-
+.inemail{
+    width: 50%;
+    border-radius:4px;
+    height: 30px;
+    background-color: #ffffff;
+}
 
 .link{
 
