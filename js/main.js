@@ -29,7 +29,7 @@ let allproducts = document.querySelector(".products");
 let products = [
     { id: 1, Category: "games", title: "FIFA", imageurl: "img/fif.png", price: 60 },
     { id: 2, Category: "accessories", title: "Gaming Headphone", imageurl: "img/headphone.png", price: 150 },
-    { id: 3, Category: "Electronic", title: "Computer Gaming", imageurl: "img/pc.png", price: 2499 },
+    { id: 3, Category: "Electronic", title: "PC Gaming", imageurl: "img/pc.png", price: 2499 },
     { id: 4, Category: "accessories", title: "Logitech G502", imageurl: "img/mouse.png", price: 100 },
     { id: 5, Category: "games", title: "SpiderMan", imageurl: "img/spider.jpg", price: 80 },
     { id: 6, Category: "accessories", title: "Gaming Keyboard", imageurl: "img/keyboard-removebg.png", price: 250 },
