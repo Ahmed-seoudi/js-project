@@ -16,6 +16,15 @@ div.signup{
     border-radius: 10px;
     margin-top: -2%;
 }
+
+@media (max-width: 576px) {
+    div.signup {
+        width: 93%;
+        height: 500px;
+    }
+}
+
+
 .sign{
     font-size: 38px;
     margin-top: 8px;
@@ -52,20 +61,22 @@ div.signup{
     font-size: 21px;
 }
 
+
+
 .inemail{
-    width: 47%;
+    width: 50%;
     border-radius:4px;
     height: 30px;
     background-color: #ffffff;
 }
 .inpass{
-    width: 47%;
+    width: 50%;
     border-radius:4px;
     height: 30px;
     background-color: #ffffff;
 }
 .inname{
-    width: 47%;
+    width: 50%;
     border-radius:4px;
     height: 30px;
     background-color: #ffffff;
@@ -73,15 +84,8 @@ div.signup{
 .name{
     margin-top: 15px;
 }
-.cinpass{
-    width: 47%;
-    border-radius:4px;
-    height: 30px;
-    background-color: #ffffff;
-}
-.cpass{
-    margin-top: 15px;
-}
+
+
 .link{
 
     text-decoration: none;
