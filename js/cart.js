@@ -1,8 +1,6 @@
-
 let ProductsInCart = localStorage.getItem("ProductsInCart")
     ? JSON.parse(localStorage.getItem("ProductsInCart"))
     : [];
-
 
 function drawCartProducts() {
     let myProductsDiv = document.querySelector(".my-products");
@@ -38,16 +36,25 @@ function drawCartProducts() {
     totalPriceDiv.innerHTML = `Total Price: $${totalPrice.toFixed(2)}`;
 }
 
-
 function removeFromCart(id) {
     ProductsInCart = ProductsInCart.filter(item => item.id !== id);
     localStorage.setItem("ProductsInCart", JSON.stringify(ProductsInCart));
-    drawCartProducts(); 
+    drawCartProducts();
 }
 
-drawCartProducts();
+function clearCart() {
+    localStorage.removeItem("ProductsInCart");
+    ProductsInCart = [];
+    drawCartProducts();
+}
 
-// Fetch Favorites from localStorage
+document.addEventListener("DOMContentLoaded", drawCartProducts);
+
+let clearCartBtn = document.querySelector("#clear-cart-btn");
+if (clearCartBtn) {
+    clearCartBtn.addEventListener("click", clearCart);
+}
+
 let favoriteItems = localStorage.getItem("Favorites") ? JSON.parse(localStorage.getItem("Favorites")) : [];
 
 // Function to draw favorite products
